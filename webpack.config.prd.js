@@ -84,7 +84,7 @@ module.exports = {
         ]
     },
     output: {
-        publicPath: '/',
+        path: __dirname + '/docs',
         filename: '[name].[chunkhash:8].js',
         chunkFilename: '[name].[chunkhash:8].js'
     },
@@ -113,7 +113,7 @@ module.exports = {
         }
     },
     plugins: [
-        new CleanWebpackPlugin(['dist']),
+        new CleanWebpackPlugin(['docs']),
         new MiniCssExtractPlugin({
             filename: '[name].[contenthash:8].css',
             chunkFilename: '[id].[contenthash:8].css'
