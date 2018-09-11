@@ -18,6 +18,6 @@ import ScrollSpy from './component/scrollSpy/scrollSpy'
 
 ## TODO List
 
-1. ~~通过配置调整tab的位置(上下左右)
+1. ~~通过配置调整tab的位置(上下左右)~~
 
-2. ~~响应式布局(flex)
+2. ~~响应式布局(flex)~~
