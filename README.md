@@ -1,6 +1,6 @@
 # react-scroll-spy
 
-一个React版本的scroll-spy组件。
+一个基于React16版本的scroll-spy组件。
 
 
 [Demo](https://xuelq007.github.io/react-scroll-spy/)
