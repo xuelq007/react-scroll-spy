@@ -7,8 +7,6 @@
 
 ## 本地运行
 
-git clone git@github.com:xuelq007/react-scroll-spy.git
-
 npm i
 
 npm run dev
