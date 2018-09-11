@@ -17,22 +17,38 @@ const Layout = {
 export default class ScrollSpy extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            layout: this.props.layout
+        }
         this.scrollHandler = common.throttle(this.scrollHandler, 200);
         this.resizeHandler = common.throttle(this.resizeHandler, 200);
     }
 
-    componentWillMount() {
+    static getDerivedStateFromProps(props, state) {
         style.use();
+        if (props.layout !== state.layout) {
+            return {
+                layout: props.layout
+            }
+        }
+
+        return {
+            layout: Layout.TOP
+        }
+    }
+
+    componentDidUpdate() {
+        this.calTabContentHeight();
     }
 
     componentWillUnmount() {
-        this.getTabContentDom().removeEventListener('scroll', this.scrollHandler);
+        this.getContentDom().removeEventListener('scroll', this.scrollHandler);
         window.removeEventListener('resize', this.resizeHandler);
         style.unuse();
     }
 
     componentDidMount() {
-        this.getTabContentDom().addEventListener('scroll', this.scrollHandler);
+        this.getContentDom().addEventListener('scroll', this.scrollHandler);
 
         this.calTabContentHeight();
         window.addEventListener('resize', this.resizeHandler);
@@ -77,13 +93,36 @@ export default class ScrollSpy extends Component {
     };
 
     calTabContentHeight = () => {
+        let contentDom = this.getContentDom();
+        let tabsContainer = this.getTabsContainer();
+
+        let layout = this.state.layout;
+
         let viewportHeight = document.body.offsetHeight;
-        let tabRectBottom = document.querySelector('.nav-container').getBoundingClientRect().bottom;
-        this.getTabContentDom().style.height = viewportHeight-tabRectBottom-pageBottomSpace + 'px';
-        console.log(viewportHeight-tabRectBottom-pageBottomSpace);
+        let tabRectBottom = 0;
+
+        switch (layout) {
+            case Layout.TOP:
+                tabRectBottom = document.querySelector('.nav-container').getBoundingClientRect().bottom;
+                contentDom.style.height = viewportHeight-tabRectBottom-pageBottomSpace + 'px';
+                tabsContainer.className = tabsContainer.className.replace(/[tab-lef|tab-right]/ig, '');
+                break;
+            case Layout.BOTTOM:
+                tabRectBottom = 200;
+                contentDom.style.height = viewportHeight-tabRectBottom+ 'px';
+                contentDom.style.marginBottom = pageBottomSpace + 'px';
+                tabsContainer.className = tabsContainer.className.replace(/[tab-lef|tab-right]/ig, '');
+                break;
+            case Layout.LEFT:
+                tabsContainer.className = tabsContainer.className + ' tab-left';
+                break;
+            case Layout.RIGHT:
+                tabsContainer.className = tabsContainer.className + ' tab-right';
+                break;
+        }
     };
 
-    getTabContentDom = () => {
+    getContentDom = () => {
         if (this.tabContentDom) {
             return this.tabContentDom;
         }
@@ -100,7 +139,7 @@ export default class ScrollSpy extends Component {
     }
 
     getTabContentHeight = () => {
-        let tabContentDom = this.getTabContentDom();
+        let tabContentDom = this.getContentDom();
         return parseFloat(window.getComputedStyle(tabContentDom).height, 10) || 0;
     };
 
@@ -110,6 +149,10 @@ export default class ScrollSpy extends Component {
 
     getTabs = () => {
         return document.querySelectorAll('.nav-container>ul')[0].children;
+    };
+
+    getTabsContainer = () => {
+        return document.querySelector('.nav-container>ul');
     };
 
     isElementInViewport = el => {
@@ -149,24 +192,11 @@ export default class ScrollSpy extends Component {
         </div>
 
         let mainView = null;
-        let layout = this.props.layout || Layout.TOP;
-
-        switch(layout) {
-            case Layout.TOP:
-                mainView = <React.Fragment>
-                    {tabs} {scrollComps}
-                </React.Fragment>;
-                break;
-            case Layout.BOTTOM:
-                mainView = <React.Fragment>
-                    {scrollComps} {tabs}
-                </React.Fragment>
-                break;
-        }
+        let layout = this.state.layout;
 
         return (
-            <div className="ss-root">
-                {mainView}
+            <div className={`ss-root ${layout}`}>
+                 {tabs} {scrollComps}
             </div>
         );
     }

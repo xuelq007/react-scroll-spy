@@ -1,7 +1,24 @@
 /** 组件style  **/
 
 .ss-root {
+    display: flex;
     position: relative;
+}
+
+.top {
+    flex-direction: column;
+}
+
+.bottom {
+    flex-direction: column-reverse;
+}
+
+.left {
+    flex-direction: row;
+}
+
+.right {
+    flex-direction: row-reverse;
 }
 
 .tab-content {
@@ -44,6 +61,20 @@
         a {
             color: #1890ff;
             text-decoration: none;
+        }
+    }
+
+    .tab-left {
+        li {
+            display: block;
+            margin-bottom: 20px;
+        }
+    }
+
+    .tab-right {
+        li {
+            display: block;
+            margin-bottom: 20px;
         }
     }
 }

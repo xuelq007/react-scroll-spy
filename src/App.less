@@ -1,4 +1,6 @@
 .App {
+  display: flex;
+  flex-direction: column;
   text-align: center;
 }
 
@@ -22,14 +24,23 @@
   font-size: large;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
 .text {
   width: 80%;
   text-align: left;
   padding: 0px 30px;
   line-height: 20px;
+}
+
+.combo {
+  width: 30%;
+  height: 30px;
+  margin: 20px;
+}
+
+.optionsContainer {
+  display: flex;
+}
+
+.layout-text {
+  margin: 25px 0px 10px 20px;
 }
