@@ -5,8 +5,11 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
 
-module.exports = {
+const smp = new SpeedMeasurePlugin();
+
+module.exports = smp.wrap({
     entry: [
         'babel-polyfill',
         './src/index.jsx'
@@ -124,4 +127,4 @@ module.exports = {
         }),
         new webpack.HashedModuleIdsPlugin()
     ]
-};
+});
