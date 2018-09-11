@@ -3,7 +3,7 @@
 一个基于React16版本的scroll-spy组件。
 
 
-## [Demo戳戳戳](https://xuelq007.github.io/react-scroll-spy/)
+[Demo戳戳戳](https://xuelq007.github.io/react-scroll-spy/)  
 
 ## 本地运行
 
