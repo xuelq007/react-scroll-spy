@@ -204,7 +204,8 @@ export default class ScrollSpy extends Component {
 
 ScrollSpy.defaultProps = {
     components: [],
-    tabs: []
+    tabs: [],
+    layout: Layout.TOP
 };
 
 
