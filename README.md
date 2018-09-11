@@ -5,12 +5,27 @@
 
 [Demo](https://xuelq007.github.io/react-scroll-spy/)
 
+## 本地运行
 
-## 快速开始
+git clone git@github.com:xuelq007/react-scroll-spy.git
+
+npm i
+
+npm run dev
+
+localhost:3000
+
+
+## 使用
 
 ```javascript
 
-import ScrollSpy from './component/scrollSpy/scrollSpy'
+import ScrollSpy from './component/scrollSpy/scrollSpy';
+
+let news1 = <div>...</div>;
+let news2 = <div>...</div>;
+...
+let components = [[news1],[news2],[news3],[news4]];
 
 <ScrollSpy layout='top' components={components} tabs={['Facebook', 'Google', 'Microsoft', 'IBM']} />
 
